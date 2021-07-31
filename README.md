@@ -20,6 +20,7 @@ Currently it's quite ugly but it gets the job done!
 * Add cute icon
 * Test for bugs etc etc
 * Support for TTC price fetching
+* Support for checking if files need updating
 
 ## How to build
 * Make sure you have PyGObject installed: [https://pygobject.readthedocs.io/en/latest/](https://pygobject.readthedocs.io/en/latest/)
