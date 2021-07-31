@@ -13,6 +13,7 @@ class AddonManagerWindow(Gtk.Window):
     addon_link_textview = None
     layout_box = None
     start_download_button = None
+    status_label = None
 
     def __init__(self):
         super().__init__(title="ESO Addon Manager for Linux")
@@ -25,6 +26,7 @@ class AddonManagerWindow(Gtk.Window):
         self.create_addon_location_field()
         self.create_addon_link_textview()
         self.create_download_button()
+        self.create_status_label()
 
         self.adl = AddonDownloader()
 
@@ -33,14 +35,20 @@ class AddonManagerWindow(Gtk.Window):
         self.add(self.layout_box)
 
     def create_addon_location_field(self): 
+        label = Gtk.Label(label="ESO Addon folder location")
+        label.set_line_wrap(True)
         self.addons_location_field = Gtk.Entry()
         self.addons_location_field.set_text(self.addons_location)
+        self.layout_box.pack_start(label, False, False, 0)
         self.layout_box.pack_start(self.addons_location_field, False, False, 10)
-    
+
     def create_addon_link_textview(self):
+        label = Gtk.Label(label="Links to ESOUI.com addon pages")
+        label.set_line_wrap(True)
         scrolledwindow = Gtk.ScrolledWindow()
         scrolledwindow.set_hexpand(True)
         scrolledwindow.set_vexpand(True)
+        self.layout_box.pack_start(label, False, False, 0)
         self.layout_box.pack_start(scrolledwindow, True, True, 10)
 
         self.addon_link_textview = Gtk.TextView()
@@ -51,8 +59,12 @@ class AddonManagerWindow(Gtk.Window):
     def create_download_button(self):
         self.start_download_button = Gtk.Button(label="Download")
         self.start_download_button.connect("clicked", self.on_start_download)
-        self.layout_box.pack_start(self.start_download_button, False, False, 10)
+        self.layout_box.pack_start(self.start_download_button, False, False, 0)
 
+    def create_status_label(self):
+        self.status_label = Gtk.Label(label="Ready to download...")
+        self.status_label.set_line_wrap(True)
+        self.layout_box.pack_start(self.status_label, False, False, 0)
 
 
     def create_addon_files(self):
