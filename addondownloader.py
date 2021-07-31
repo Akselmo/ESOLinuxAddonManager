@@ -4,6 +4,8 @@ from urllib.request import urlopen, Request
 
 class AddonDownloader():
     
+    file_number = 0
+
     headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0'}
 
     addons = ""
@@ -28,13 +30,14 @@ class AddonDownloader():
         if os.path.isdir(self.addon_temp_folder) == False:
             os.mkdir(self.addon_temp_folder)
         links = self.addons.split("\n")
-        file_number = 0
+        self.file_number = 0
         for link in links:
-            file = self.download(link, file_number)
+            file = self.download(link, self.file_number)
             self.unzip(file)
-            file_number += 1
+            self.file_number += 1
         #delete temp folder
         shutil.rmtree(self.addon_temp_folder)
+        self.end()
 
     def download(self, link, file_number):
         tempfilename = self.addon_temp_folder + "/" + self.addon_temp_name.format(str(file_number))
@@ -50,6 +53,9 @@ class AddonDownloader():
     def unzip(self, file):
         with zipfile.ZipFile(file, 'r') as z:
             z.extractall(self.addons_location)
+    
+    def end(self):
+        print("Addons downloaded and unzipped to " + self.addons_location)
 
 
 if __name__ == "__main__":
