@@ -43,7 +43,7 @@ class AddonManagerWindow(Gtk.Window):
         self.layout_box.pack_start(self.addons_location_field, False, False, 10)
 
     def create_addon_link_textview(self):
-        label = Gtk.Label(label="Links to ESOUI.com addon pages")
+        label = Gtk.Label(label="Links to ESOUI.com addon pages, one per line")
         label.set_line_wrap(True)
         scrolledwindow = Gtk.ScrolledWindow()
         scrolledwindow.set_hexpand(True)
