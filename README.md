@@ -1,5 +1,6 @@
 # ESOLinuxAddonManager
-Very simple addon manager for ESO Linux.
+Very simple addon manager for ESO Linux. Well, more a downloader for now.
+
 Currently it's quite ugly but it gets the job done!
 
 ## How to use
@@ -21,6 +22,7 @@ Currently it's quite ugly but it gets the job done!
 * Test for bugs etc etc
 * Support for TTC price fetching
 * Support for checking if files need updating
+* Support for deleting addons
 
 ## How to build
 * Make sure you have PyGObject installed: [https://pygobject.readthedocs.io/en/latest/](https://pygobject.readthedocs.io/en/latest/)
