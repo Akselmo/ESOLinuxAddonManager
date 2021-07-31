@@ -1,5 +1,5 @@
 # ESOLinuxAddonManager
-Very simple addon manager for ESO Linux. Well, more a downloader for now.
+Very simple addon manager for Elder Scrolls Online running on Linux. Well, more a downloader for now.
 
 Currently it's quite ugly but it gets the job done!
 
