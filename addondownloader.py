@@ -1,5 +1,5 @@
 
-import sys, re, shutil, os, re, zipfile
+import re, shutil, os, re, zipfile
 from urllib.request import urlopen, Request
 
 class AddonDownloader():
