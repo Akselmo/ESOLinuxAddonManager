@@ -28,7 +28,7 @@ class AddonManagerWindow(Gtk.Window):
         self.create_download_button()
         self.create_status_label()
 
-        self.adl = AddonDownloader()
+        self.adl = AddonDownloader(self.status_label)
 
     def create_layout_box(self):
         self.layout_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 6)
@@ -83,7 +83,6 @@ class AddonManagerWindow(Gtk.Window):
         return filename
 
     def on_start_download(self, widget):
-        print("Start download")
         #Save all the input data to text files
         #ESO addon location folder
         addons_location_file = open("addonslocation.txt", "w")
@@ -98,7 +97,10 @@ class AddonManagerWindow(Gtk.Window):
         addons.write(links.rstrip("\n"))
         addons.close()
 
+        try:
+            self.adl.start()
+        except Exception as err:
+            self.status_label.set_text(str(err))
 
-        self.adl.start()
 
 

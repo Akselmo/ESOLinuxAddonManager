@@ -12,21 +12,17 @@ class AddonDownloader():
     addons_location = ""
     addon_temp_folder = "addontemp"
     addon_temp_name = "addon{0}.zip"
+    status = None
 
-    def __init__(self):
-        try:
-            addons_file = open("addons.txt", "r")
-            addons_location_file = open("addonslocation.txt", "r")
-            self.addons = addons_file.read()
-            self.addons_location = addons_location_file.read()
-        except:
-            print("FAIL: One or both addon text files were empty or not found!")
-            print("Check addons.txt and addonslocation.txt")
-            return
-
-
+    def __init__(self, status):
+        self.status = status
+        addons_file = open("addons.txt", "r")
+        addons_location_file = open("addonslocation.txt", "r")
+        self.addons = addons_file.read()
+        self.addons_location = addons_location_file.read()
 
     def start(self):
+        self.status.set_text("Starting....")
         if os.path.isdir(self.addon_temp_folder) == False:
             os.mkdir(self.addon_temp_folder)
         links = self.addons.split("\n")
@@ -40,10 +36,10 @@ class AddonDownloader():
         self.end()
 
     def download(self, link, file_number):
+        self.status.set_text("Downloading: " + link)
         tempfilename = self.addon_temp_folder + "/" + self.addon_temp_name.format(str(file_number))
         info = re.findall("https://www.esoui.com/downloads/info(\d*)", link)[0]
         download_url = "https://cdn.esoui.com/downloads/file" + info + "/"
-        print(download_url)
         request = Request(url=download_url, headers=self.headers)
         response = urlopen(request)
         with open(tempfilename, "wb") as f:
@@ -51,13 +47,9 @@ class AddonDownloader():
         return tempfilename
     
     def unzip(self, file):
+        self.status.set_text("Unzipping: " + file)
         with zipfile.ZipFile(file, 'r') as z:
             z.extractall(self.addons_location)
     
     def end(self):
-        print("Addons downloaded and unzipped to " + self.addons_location)
-
-
-if __name__ == "__main__":
-    addon = AddonDownloader()
-    addon.start()
+        self.status.set_text("Done! Addons downloaded and unzipped to " + self.addons_location)
