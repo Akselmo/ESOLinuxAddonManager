@@ -28,3 +28,8 @@ Currently it's quite ugly but it gets the job done!
 * Make sure you have PyGObject installed: [https://pygobject.readthedocs.io/en/latest/](https://pygobject.readthedocs.io/en/latest/)
 * To run the app from python, just type `python3 main.py`
 * You can build the app into single file with `pyinstaller main.py --onefile`
+
+## Contributing
+If you want to contribute, hop on my Discord! [https://discord.gg/PZkYZRx](https://discord.gg/PZkYZRx)
+
+I have no proper guidelines yet set so I want to chat about it first.
