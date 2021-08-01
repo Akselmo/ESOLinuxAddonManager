@@ -4,6 +4,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 from addondownloader import AddonDownloader
 from pathlib import Path
+from threading import Thread
 class AddonManagerWindow(Gtk.Window):
 
     adl = None
@@ -28,7 +29,7 @@ class AddonManagerWindow(Gtk.Window):
         self.create_download_button()
         self.create_status_label()
 
-        self.adl = AddonDownloader(self.status_label)
+        self.adl = AddonDownloader(self.status_label, self.start_download_button)
 
     def create_layout_box(self):
         self.layout_box = Gtk.Box.new(Gtk.Orientation.VERTICAL, 6)
@@ -97,10 +98,13 @@ class AddonManagerWindow(Gtk.Window):
         addons.write(links.rstrip("\n"))
         addons.close()
 
+        adlthread = Thread(target=self.adl.start)
         try:
-            self.adl.start()
+            adlthread.start()
         except Exception as err:
             self.status_label.set_text(str(err))
+            self.dl_button.set_sensitive(True)
+
 
 
 

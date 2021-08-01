@@ -13,15 +13,18 @@ class AddonDownloader():
     addon_temp_folder = "addontemp"
     addon_temp_name = "addon{0}.zip"
     status = None
+    dl_button = None
 
-    def __init__(self, status):
+    def __init__(self, status, dl_button):
         self.status = status
+        self.dl_button = dl_button
         addons_file = open("addons.txt", "r")
         addons_location_file = open("addonslocation.txt", "r")
         self.addons = addons_file.read()
         self.addons_location = addons_location_file.read()
 
     def start(self):
+        self.dl_button.set_sensitive(False)
         self.status.set_text("Starting....")
         if os.path.isdir(self.addon_temp_folder) == False:
             os.mkdir(self.addon_temp_folder)
@@ -53,3 +56,4 @@ class AddonDownloader():
     
     def end(self):
         self.status.set_text("Done! Addons downloaded and unzipped to " + self.addons_location)
+        self.dl_button.set_sensitive(True)
