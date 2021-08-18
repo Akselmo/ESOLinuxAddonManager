@@ -1,10 +1,11 @@
 import gi
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GObject
 from addondownloader import AddonDownloader
 from pathlib import Path
 from threading import Thread
+GObject.threads_init()
 class AddonManagerWindow(Gtk.Window):
 
     adl = None
