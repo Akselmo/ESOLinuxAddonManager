@@ -5,7 +5,7 @@ Currently it's quite ugly but it gets the job done!
 
 ## How to use
 * Download the app from releases
-* Put it in any folder you wish
+* Put it in any empty folder you wish
 * Make sure the app has permissions to run (is set to executable)
 * After opening the app, add
   * Your ESO addon location. For example, for me it is `/mnt/sda3/steam/steamapps/compatdata/306130/pfx/drive_c/users/steamuser/My Documents/Elder Scrolls Online/live/AddOns/`
