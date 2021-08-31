@@ -16,13 +16,7 @@ Currently it's quite ugly but it gets the job done!
   * List of addons are in `addons.txt`
   * The ESO addon location is saved in `addonslocation.txt`
 
-## TODO:
-* Make the app prettier
-* Add cute icon
-* Test for bugs etc etc
-* Support for TTC price fetching
-* Support for checking if files need updating
-* Support for deleting addons
+**Check issues for TODO and bugs!**
 
 ## How to build
 * Make sure you have PyGObject installed: [https://pygobject.readthedocs.io/en/latest/](https://pygobject.readthedocs.io/en/latest/)
