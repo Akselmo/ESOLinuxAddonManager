@@ -141,3 +141,5 @@ addons.txt
 addonslocation.txt
 /test/
 /addontemp/
+.vimspector.json
+ESOLinuxAddonManager.tar.gz
