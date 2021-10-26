@@ -5,7 +5,6 @@ from gi.repository import Gtk, GObject
 from addondownloader import AddonDownloader
 from pathlib import Path
 from threading import Thread
-GObject.threads_init()
 class AddonManagerWindow(Gtk.Window):
 
     adl = None
@@ -19,10 +18,11 @@ class AddonManagerWindow(Gtk.Window):
     ttc_eu_radiobutton = None
     ttc_us_radiobutton = None
     status_label = None
-    all_buttons = []
+    buttons = []
     ttc_region = "eu"
 
     def __init__(self):
+        GObject.threads_init()
         super().__init__(title="ESO Addon Manager for Linux")
         self.create_addon_files()
         self.set_size_request(400, 500)
@@ -34,8 +34,8 @@ class AddonManagerWindow(Gtk.Window):
         self.create_ttc_radio_buttons()
         self.create_download_ttc_button()
         self.create_status_label()
-        self.all_buttons = [self.start_download_button, self.update_ttc_button]
-        self.adl = AddonDownloader(self.status_label, self.all_buttons)
+        self.buttons = [self.start_download_button, self.update_ttc_button]
+        self.adl = AddonDownloader(self.update_buttons, self.update_status_text)
 
     def create_addon_location_field(self):
         label = Gtk.Label(label="ESO Addon folder location")
@@ -100,16 +100,20 @@ class AddonManagerWindow(Gtk.Window):
     def on_ttc_radio_button_toggled(self, button, name):
         self.ttc_region = name
 
+    def update_buttons(self, sensitivity):
+        for button in self.buttons:
+            button.set_sensitive(sensitivity)
+
+    def update_status_text(self, text):
+        self.status_label.set_text(text)
+
     def on_start_ttc_update(self, widget):
         addons_location_file = open("addonslocation.txt", "w")
         addons_location_file.write(self.addons_location_field.get_text())
         addons_location_file.close()
         adlthread = Thread(target=self.adl.start_ttc_update, args=(self.ttc_region,))
-        try:
-            adlthread.start()
-        except Exception as err:
-            self.status_label.set_text(str(err))
-            self.adl.toggle_button_sensitivity(sensitivity=True)
+        self.handle_thread(adlthread)
+
 
     def on_start_download(self, widget):
         #Save all the input data to text files
@@ -127,12 +131,15 @@ class AddonManagerWindow(Gtk.Window):
         addons.close()
 
         adlthread = Thread(target=self.adl.start)
+        self.handle_thread(adlthread)
+
+    def handle_thread(self, thread):
+        thread.daemon = True
         try:
-            adlthread.start()
+            self.update_buttons(False)
+            thread.start()
+            self.update_buttons(True)
         except Exception as err:
-            self.status_label.set_text(str(err))
-            self.adl.toggle_button_sensitivity(sensitivity=True)
-
-
-
+            self.update_status_text(str(err))
+            self.update_buttons(True)
 

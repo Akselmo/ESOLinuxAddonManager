@@ -1,5 +1,7 @@
-
-import re, shutil, os, re, zipfile
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import GLib
+import re, shutil, os, re, zipfile, time
 from urllib.request import urlopen, Request
 
 class AddonDownloader():
@@ -12,20 +14,21 @@ class AddonDownloader():
     addons_location = ""
     addon_temp_folder = "addontemp"
     addon_temp_name = "addon{0}.zip"
-    status = None
-    buttons = []
 
-    def __init__(self, status, buttons):
-        self.status = status
-        self.buttons = buttons
+    #GUI functions
+    set_status_text = None
+
+    def __init__(self, func_set_button_sensitivity, func_set_status_text):
+        self.set_button_sensitivity = func_set_button_sensitivity
+        self.set_status_text = func_set_status_text
         addons_file = open("addons.txt", "r")
         addons_location_file = open("addonslocation.txt", "r")
         self.addons = addons_file.read()
         self.addons_location = addons_location_file.read()
 
     def start(self):
-        self.toggle_button_sensitivity(False)
-        self.status.set_text("Starting....")
+        GLib.idle_add(self.set_button_sensitivity, False)
+        self.set_status_text("Starting....")
         if os.path.isdir(self.addon_temp_folder) == False:
             os.mkdir(self.addon_temp_folder)
         links = self.addons.split("\n")
@@ -39,10 +42,9 @@ class AddonDownloader():
         self.end()
 
     def start_ttc_update(self, ttc_region):
-        self.toggle_button_sensitivity(False)
-        self.status.set_text("Updating TTC...")
+        GLib.idle_add(self.set_button_sensitivity, False)
+        self.set_status_text("Updating TTC...")
         target_location = self.addons_location+"/TamrielTradeCentre/"
-        print(target_location)
         if os.path.isdir(self.addon_temp_folder) == False:
             os.mkdir(self.addon_temp_folder)
         self.file_number = 0
@@ -50,11 +52,10 @@ class AddonDownloader():
         file = self.download(link, self.file_number, custom_url=link)
         self.unzip(file, custom_location=target_location)
         shutil.rmtree(self.addon_temp_folder)
-        self.status.set_text("Done! Updated TTC pricetables to " + target_location)
-        self.toggle_button_sensitivity(True)
+        self.set_status_text("Done! Updated TTC pricetables to " + target_location)
 
     def download(self, link, file_number, custom_url=""):
-        self.status.set_text("Downloading: " + link)
+        self.set_status_text("Downloading: " + link)
         tempfilename = self.addon_temp_folder + "/" + self.addon_temp_name.format(str(file_number))
         if custom_url == "":
             info = re.findall("https://www.esoui.com/downloads/info(\d*)", link)[0]
@@ -68,7 +69,7 @@ class AddonDownloader():
         return tempfilename
 
     def unzip(self, file, custom_location=""):
-        self.status.set_text("Unzipping: " + file)
+        self.set_status_text("Unzipping: " + file)
         with zipfile.ZipFile(file, 'r') as z:
             if custom_location == "":
                 z.extractall(self.addons_location)
@@ -76,9 +77,10 @@ class AddonDownloader():
                 z.extractall(custom_location)
 
     def end(self):
-        self.status.set_text("Done! Addons downloaded and unzipped to " + self.addons_location)
-        self.toggle_button_sensitivity(True)
+        self.set_status_text("Done! Addons downloaded and unzipped to " + self.addons_location)
+        GLib.idle_add(self.set_button_sensitivity, True)
 
-    def toggle_button_sensitivity(self, sensitivity):
-        for button in self.buttons:
-            button.set_sensitive(sensitivity)
+
+
+
+
