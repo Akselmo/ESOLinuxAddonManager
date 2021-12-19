@@ -53,6 +53,7 @@ class AddonDownloader():
         self.unzip(file, custom_location=target_location)
         shutil.rmtree(self.addon_temp_folder)
         self.set_status_text("Done! Updated TTC pricetables to " + target_location)
+        self.end()
 
     def download(self, link, file_number, custom_url=""):
         self.set_status_text("Downloading: " + link)
