@@ -33,7 +33,7 @@ Currently it's quite ugly but it gets the job done!
 
 For building a standalone app, use [Nuitka3](https://pypi.org/project/Nuitka/) and run following command in repository root:
 
-`nuitka3 main.py --onefile --enable-plugin=gi --static-libpython=yes -o ESOLinuxAddonManager --output-dir=./dist`
+`nuitka3 main.py --onefile --enable-plugin=gi -o ESOLinuxAddonManager --output-dir=./dist`
 
 It's worth noting that the onefile Nuitka generates is a bit slower to start, since it unpacks everything to a temp folder before launching.
 Also I've noticed the filename cant have spaces, so use `.desktop` files to link to it.
