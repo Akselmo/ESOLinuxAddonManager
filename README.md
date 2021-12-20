@@ -18,11 +18,13 @@ Currently it's quite ugly but it gets the job done!
 * After opening the app, add
   * Your ESO addon location. For example, for me it is `/mnt/sda3/steam/steamapps/compatdata/306130/pfx/drive_c/users/steamuser/My Documents/Elder Scrolls Online/live/AddOns/`
   * Paste links to ESOUI.com addon pages, one per line. One link should look like, for example: `https://www.esoui.com/downloads/info602-Azurah-InterfaceEnhanced.html`
-  * Press download
+  * Press "Download"
   * If you have issues, the text below download button should tell you whats happening
 * All your data is saved to text files
   * List of addons are in `addons.txt`
   * The ESO addon location is saved in `addonslocation.txt`
+* If you use TamrielTradeCenter addon
+  * Press "Update TTC" button to update the prices from the official pricelist
 
 **Check issues for TODO and bugs!**
 
