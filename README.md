@@ -5,11 +5,13 @@
 [![discord](https://img.shields.io/discord/475097536160595979?color=%235865F2&label=aks_dev%20discord&logo=discord&style=flat-square&logoColor=white)](https://discord.gg/PZkYZRx)
 
 # ESOLinuxAddonManager
+
 Very simple addon manager for Elder Scrolls Online running on Linux. Well, more a downloader for now.
 
 Currently it's quite ugly but it gets the job done!
 
 ## How to use
+
 * Download the app from releases
 * Put it in any empty folder you wish
 * Make sure the app has permissions to run (is set to executable)
@@ -25,11 +27,21 @@ Currently it's quite ugly but it gets the job done!
 **Check issues for TODO and bugs!**
 
 ## How to build
+
 * Make sure you have PyGObject installed: [https://pygobject.readthedocs.io/en/latest/](https://pygobject.readthedocs.io/en/latest/)
 * To run the app from python, just type `python3 main.py`
-* You can build the app into single file with `pyinstaller main.py --onefile`
+
+For building a standalone app, use [Nuitka3](https://pypi.org/project/Nuitka/) and run following command in repository root:
+
+`nuitka3 main.py --onefile --enable-plugin=gi --static-libpython=yes -o ESOLinuxAddonManager --output-dir=./dist`
+
+It's worth noting that the onefile Nuitka generates is a bit slower to start, since it unpacks everything to a temp folder before launching.
+Also I've noticed the filename cant have spaces, so use `.desktop` files to link to it.
 
 ## Contributing
-If you want to contribute, hop on my Discord! [https://discord.gg/PZkYZRx](https://discord.gg/PZkYZRx)
 
-I have no proper guidelines yet set so I want to chat about it first.
+Feel free to make issues if you encounter bugs, or comment on existing ones.
+I am not looking for code contribution at the moment, but feel free to chat about things with me if you wish.
+
+You can find me in my Discord: [https://discord.gg/PZkYZRx](https://discord.gg/PZkYZRx)
+
