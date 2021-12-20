@@ -21,12 +21,13 @@ class AddonDownloader():
     def __init__(self, func_set_button_sensitivity, func_set_status_text):
         self.set_button_sensitivity = func_set_button_sensitivity
         self.set_status_text = func_set_status_text
+
+    def start(self):
         addons_file = open("addons.txt", "r")
         addons_location_file = open("addonslocation.txt", "r")
         self.addons = addons_file.read()
         self.addons_location = addons_location_file.read()
 
-    def start(self):
         GLib.idle_add(self.set_button_sensitivity, False)
         self.set_status_text("Starting....")
         if os.path.isdir(self.addon_temp_folder) == False:
