@@ -1,5 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQuickStyle>
 
 int main(int argc, char *argv[])
 {
@@ -8,6 +9,8 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
+    QQuickStyle::setStyle("Fusion");
+
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
