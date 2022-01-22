@@ -30,15 +30,9 @@ Currently it's quite ugly but it gets the job done!
 
 ## How to build
 
-* Make sure you have PyGObject installed: [https://pygobject.readthedocs.io/en/latest/](https://pygobject.readthedocs.io/en/latest/)
-* To run the app from python, just type `python3 main.py`
-
-For building a standalone app, use [Nuitka3](https://pypi.org/project/Nuitka/) and run following command in repository root:
-
-`nuitka3 main.py --onefile --enable-plugin=gi -o ESOLinuxAddonManager --output-dir=./dist`
-
-It's worth noting that the onefile Nuitka generates is a bit slower to start, since it unpacks everything to a temp folder before launching.
-Also I've noticed the filename cant have spaces, so use `.desktop` files to link to it.
+1. Import the project to QT Creator
+2. Use QT Creator to build the app
+3. Yup that simple lol
 
 ## Contributing
 
