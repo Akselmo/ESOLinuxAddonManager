@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
+#include <iostream>
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -9,8 +11,10 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
-    QQuickStyle::setStyle("Fusion");
 
+    QQuickStyle::setStyle("Plasma");
+    QQuickStyle::setFallbackStyle("Fusion");
+    //add fusion dark style colors here
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -20,6 +24,7 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
+
 
     return app.exec();
 }
