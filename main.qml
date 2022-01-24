@@ -11,11 +11,11 @@ ApplicationWindow {
     minimumHeight: height
     minimumWidth: width
     visible: true
-    color: "#423d3d"
+    //color: "#423d3d"
     title: qsTr("ESO Linux Addon Manager")
 
-    Row {
-        id: mainRow
+    Column {
+        id: mainColumn
         visible: true
         anchors.fill: parent
         anchors.rightMargin: 5
@@ -24,14 +24,13 @@ ApplicationWindow {
         anchors.topMargin: 5
 
 
-        Row {
-            id: addonLocationRow
+        Column {
+            id: addonLocationColumn
             height: 65
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.rightMargin: 10
             anchors.leftMargin: 10
-            layoutDirection: Qt.LeftToRight
 
             Label {
                 id: addonLocationLabel
@@ -55,12 +54,12 @@ ApplicationWindow {
 
         }
 
-        Row {
-            id: addonListRow
+        Column {
+            id: addonListColumn
             height: addonListScrollView.contentHeight + addonListDownloadButton.height
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.top: addonLocationRow.bottom
+            anchors.top: addonLocationColumn.bottom
             anchors.topMargin: 10
             anchors.leftMargin: 10
             anchors.rightMargin: 10
@@ -79,7 +78,7 @@ ApplicationWindow {
                 anchors.right: parent.right
                 anchors.top: addonListLabel.bottom
                 contentHeight: 250
-                contentWidth: addonListRow.width
+                contentWidth: addonListColumn.width
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
                 anchors.topMargin: 10
@@ -87,6 +86,10 @@ ApplicationWindow {
                 TextArea {
                     id: addonListTextArea
                     anchors.fill: parent
+                    rightInset: 0
+                    leftInset: 0
+                    bottomInset: 0
+                    topInset: 0
                     anchors.rightMargin: 10
                     anchors.bottomMargin: 10
                     placeholderText: qsTr("List addon link per row")
@@ -106,11 +109,11 @@ ApplicationWindow {
 
         }
 
-        Row {
-            id: ttcUpdaterRow
+        Column {
+            id: ttcUpdaterColumn
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.top: addonListRow.bottom
+            anchors.top: addonListColumn.bottom
             anchors.bottom: parent.bottom
             anchors.topMargin: 50
             anchors.bottomMargin: 10
@@ -121,27 +124,38 @@ ApplicationWindow {
                 id: ttcRegionPane
                 anchors.left: parent.left
                 anchors.right: parent.right
+                padding: 7
+                contentHeight: 16
+                contentWidth: 470
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
 
-                Label {
-                    id: ttcRegionLabel
-                    text: qsTr("Select TTC Region:")
-                    horizontalAlignment: Text.AlignLeft
+                Row {
+                    id: row
+                    anchors.fill: parent
+                    spacing: 4
+
+                    Label {
+                        id: ttcRegionLabel
+                        text: qsTr("Select TTC Region:")
+                        horizontalAlignment: Text.AlignLeft
+                        transformOrigin: Item.Center
+                    }
 
                     RadioButton {
                         id: radioButtonEU
+                        width: 50
                         text: qsTr("EU")
-                        anchors.left: ttcRegionLabel.right
-                        anchors.leftMargin: 5
-
-                        RadioButton {
-                            id: radioButtonNA
-                            text: qsTr("NA")
-                            anchors.horizontalCenterOffset: 60
-                            anchors.horizontalCenter: parent.horizontalCenter
-                        }
+                        checked: true
                     }
+
+                    RadioButton {
+                        id: radioButtonNA
+                        text: qsTr("NA")
+                    }
+
+
+
                 }
 
             }
@@ -166,6 +180,6 @@ ApplicationWindow {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.9}D{i:8}D{i:7}D{i:5}D{i:14}D{i:11}D{i:10}
+    D{i:0;formeditorZoom:0.9}
 }
 ##^##*/
