@@ -76,3 +76,5 @@ Thumbs.db
 .vscode/*
 .kdev4/*
 .cache/*
+
+.build/*
