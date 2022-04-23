@@ -4,6 +4,7 @@ import QtQuick.Controls 2.15
 
 ApplicationWindow {
     id: window
+    objectName: "mainWindow"
     width: 500
     height: 500
     maximumHeight: height
@@ -85,6 +86,7 @@ ApplicationWindow {
 
                 TextArea {
                     id: addonListTextArea
+                    objectName: "addonListTextArea"
                     anchors.fill: parent
                     rightInset: 0
                     leftInset: 0

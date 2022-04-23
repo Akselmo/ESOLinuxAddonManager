@@ -32,7 +32,7 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick QuickControls2 REQUIRED
 set(PROJECT_SOURCES
         main.cpp
         qml.qrc
-)
+        AddonDownloader.cpp AddonDownloader.h AddonManager.cpp AddonManager.h)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ESOLinuxAddonManager

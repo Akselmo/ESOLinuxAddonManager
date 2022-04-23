@@ -7,6 +7,7 @@
 
 class AddonDownloader
 {
+
 };
 
 #endif  //_ADDONDOWNLOADER_H_
