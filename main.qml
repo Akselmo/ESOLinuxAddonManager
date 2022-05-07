@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 
-ApplicationWindow {
+Window {
     id: window
     objectName: "mainWindow"
     width: 500
@@ -12,6 +12,7 @@ ApplicationWindow {
     minimumHeight: height
     minimumWidth: width
     visible: true
+    color: "#272727"
     //color: "#423d3d"
     title: qsTr("ESO Linux Addon Manager")
 
@@ -44,6 +45,8 @@ ApplicationWindow {
 
             TextField {
                 id: addonLocationTextField
+                objectName: "addonLocationTextField"
+                text: none.none
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: addonLocationLabel.bottom
@@ -79,15 +82,18 @@ ApplicationWindow {
                 anchors.right: parent.right
                 anchors.top: addonListLabel.bottom
                 contentHeight: 250
-                contentWidth: addonListColumn.width
+                contentWidth: addonListTextArea.width + 10
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
                 anchors.topMargin: 10
+                ScrollBar.vertical.visible: true
 
                 TextArea {
                     id: addonListTextArea
                     objectName: "addonListTextArea"
+                    text: none.none
                     anchors.fill: parent
+                    wrapMode: Text.NoWrap
                     rightInset: 0
                     leftInset: 0
                     bottomInset: 0
@@ -100,6 +106,7 @@ ApplicationWindow {
 
             Button {
                 id: addonListDownloadButton
+                objectName: "addonListDownloadButton"
                 text: qsTr("Download Addons")
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -146,6 +153,7 @@ ApplicationWindow {
 
                     RadioButton {
                         id: radioButtonEU
+                        objectName: "radioButtonEU"
                         width: 50
                         text: qsTr("EU")
                         checked: true
@@ -153,7 +161,9 @@ ApplicationWindow {
 
                     RadioButton {
                         id: radioButtonNA
+                        objectName: "radioButtonNA"
                         text: qsTr("NA")
+                        checked: false
                     }
 
 
@@ -164,6 +174,7 @@ ApplicationWindow {
 
             Button {
                 id: ttcUpdateButton
+                objectName: "ttcUpdateButton"
                 text: qsTr("Update TTC Prices")
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -180,8 +191,12 @@ ApplicationWindow {
 
 
 
+
+
+
+
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.9}
+    D{i:0;autoSize:true;height:480;width:640}
 }
 ##^##*/

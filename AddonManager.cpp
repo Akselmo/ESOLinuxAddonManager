@@ -4,19 +4,34 @@
 
 #include "AddonManager.h"
 
-QString createOrReadFile(QString fileName);
-
-void startUp()
+AddonManager::AddonManager(QObject *rootObject)
 {
-    QString addons = createOrReadFile("addons.txt");
-    QString addonsLocation = createOrReadFile("addonslocation.txt");
+    //Initialize usable elements
+    mainWindow = rootObject->findChild<QObject*>("mainWindow");
+    addonListTextArea = rootObject->findChild<QObject*>("addonListTextArea");
+    addonLocationTextField = rootObject->findChild<QObject*>("addonLocationTextField");
+    addonListDownloadButton = rootObject->findChild<QObject*>("addonListDownloadButton");
+    radioButtonEU = rootObject->findChild<QObject*>("radioButtonEU");
+    radioButtonNA = rootObject->findChild<QObject*>("radioButtonNA");
+    ttcUpdateButton = rootObject->findChild<QObject*>("ttcUpdateButton");
 
+    //Initialize addon files
+    addons = createOrReadFile("addons.txt");
+    addonsLocation = createOrReadFile("addonslocation.txt");
+
+    //Add text from files to text fields
+    addonListTextArea->setProperty("text", addons);
+    addonLocationTextField->setProperty("text", addonsLocation);
 
 }
 
-QString createOrReadFile(QString fileName)
+
+
+QString AddonManager::createOrReadFile(QString fileName)
 {
     QFile addonsFile(fileName);
     addonsFile.open(QIODevice::ReadWrite);
     return QString(addonsFile.readAll());
 }
+
+

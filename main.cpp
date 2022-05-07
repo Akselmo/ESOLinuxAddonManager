@@ -7,8 +7,10 @@
 
 using namespace std;
 
+
 int main(int argc, char* argv[])
 {
+    //Initialize app
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
@@ -32,13 +34,11 @@ int main(int argc, char* argv[])
         },
         Qt::QueuedConnection);
     engine.load(url);
+    //End initialization
 
-    //TODO: Create objects for all the text fields
-    //      Create objets/onclicks for buttons (?)
-    //      Give these items to AddonManager class and do the rest in there
+    //Create addonmanager
     QObject *rootObject = engine.rootObjects().first();
-    QObject *qmlObject = rootObject->findChild<QObject*>("addonListTextArea");
-    qmlObject->setProperty("text",QString("Hello"));
+    AddonManager addonManager(rootObject);
 
     return app.exec();
 }

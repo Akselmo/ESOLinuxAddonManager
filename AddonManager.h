@@ -11,14 +11,27 @@
 #include <QFile>
 #include <iostream>
 #include <stdio.h>
+using namespace std;
+
 
 class AddonManager
 {
+    //List the objects explicitly so it's easier to use them
+    QObject *mainWindow;
+    QObject *addonListTextArea;
+    QObject *addonLocationTextField;
+    QObject *addonListDownloadButton;
+    QObject *radioButtonEU;
+    QObject *radioButtonNA;
+    QObject *ttcUpdateButton;
+
+    //Addon files
+    QString addons;
+    QString addonsLocation;
 
 public:
+    AddonManager(QObject *rootObject);
     QString createOrReadFile(QString fileName);
-    void startUp();
-
 
 };
 
