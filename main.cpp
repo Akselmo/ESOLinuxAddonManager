@@ -36,9 +36,13 @@ int main(int argc, char* argv[])
     engine.load(url);
     //End initialization
 
-    //Create addonmanager
+    //Create rootObject and rootContext to give to QML app
     QObject *rootObject = engine.rootObjects().first();
-    AddonManager addonManager(rootObject);
+    QQmlContext *rootContext = engine.rootContext();
+
+    //Initialize addon manager
+    AddonManager addonManager(rootObject, rootContext);
+
 
     return app.exec();
 }

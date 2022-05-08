@@ -114,6 +114,11 @@ Window {
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
                 anchors.topMargin: 10
+
+                Connections {
+                    target: addonListDownloadButton
+                    onClicked: _addonManager.downloadAddonsClicked();
+                }
             }
 
         }
@@ -157,6 +162,7 @@ Window {
                         width: 50
                         text: qsTr("EU")
                         checked: true
+                        onClicked: _addonManager.updateRegion("EU");
                     }
 
                     RadioButton {
@@ -164,12 +170,9 @@ Window {
                         objectName: "radioButtonNA"
                         text: qsTr("NA")
                         checked: false
+                        onClicked: _addonManager.updateRegion("NA");
                     }
-
-
-
                 }
-
             }
 
             Button {
@@ -182,6 +185,11 @@ Window {
                 anchors.rightMargin: 0
                 anchors.leftMargin: 0
                 anchors.topMargin: 10
+
+                Connections {
+                    target: ttcUpdateButton
+                    onClicked: _addonManager.downloadTtcClicked();
+                }
             }
 
 
@@ -195,8 +203,4 @@ Window {
 
 
 
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}
-}
-##^##*/
+
