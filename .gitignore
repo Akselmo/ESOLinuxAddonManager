@@ -78,3 +78,6 @@ Thumbs.db
 .cache/*
 
 build/*
+
+addons.txt
+addonslocation.txt
