@@ -34,8 +34,10 @@ AddonManager::AddonManager(QObject *rootObject, QQmlContext *rootContext) : QObj
 QString AddonManager::createOrReadFile(QString fileName)
 {
     QFile textFile(fileName);
-    textFile.open(QIODevice::ReadWrite);
-    return QString(textFile.readAll());
+    textFile.open(QIODevice::ReadOnly);
+    QString data = textFile.readAll();
+    textFile.close();
+    return data;
 }
 
 bool AddonManager::writeIntoFile(QString fileName, QByteArray data)
@@ -44,8 +46,9 @@ bool AddonManager::writeIntoFile(QString fileName, QByteArray data)
    QFile textFile(fileName);
    try
    {
-       textFile.open(QIODevice::ReadWrite);
+       textFile.open(QIODevice::WriteOnly);
        textFile.write(data);
+       textFile.close();
        success = true;
    }
    catch (exception e)
@@ -68,6 +71,7 @@ void AddonManager::updateRegion(QString region)
 // Button clicks
 void AddonManager::downloadAddonsClicked()
 {
+
     bool addonsListSuccess = writeIntoFile(addonsListFile, addonListTextArea->property("text").toByteArray());
     bool addonsLocationSuccess = writeIntoFile(addonsLocationFile, addonLocationTextField->property("text").toByteArray());
 
