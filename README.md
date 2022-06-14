@@ -4,6 +4,8 @@
 [![ko-fi](https://img.shields.io/badge/ko--fi-donate-%23FF5E5B?style=flat-square&logo=ko-fi&logoColor=white)](https://ko-fi.com/L4L57FOPF)
 [![discord](https://img.shields.io/discord/475097536160595979?color=%235865F2&label=aks_dev%20discord&logo=discord&style=flat-square&logoColor=white)](https://discord.gg/PZkYZRx)
 
+<img src="esotux.png" width="200" height="200" width="35%" align="right"/>
+
 # ESOLinuxAddonManager
 
 Very simple addon manager for Elder Scrolls Online running on Linux. Well, more a downloader for now.
