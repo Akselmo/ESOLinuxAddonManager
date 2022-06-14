@@ -35,7 +35,13 @@ class AddonDownloader():
         links = self.addons.split("\n")
         self.file_number = 0
         for link in links:
-            file = self.download(link, self.file_number)
+            info = re.findall("https://www.esoui.com/downloads/info(\d*)", link)[0]
+            download_url = "https://cdn.esoui.com/downloads/file" + info + "/1"
+            file = self.download(self.file_number, download_url)
+            if file == False:
+                print("Failed to use the new url, using old url instead...")
+                download_url = "https://cdn.esoui.com/downloads/file" + info + "/"
+                file = self.download(self.file_number, download_url)
             self.unzip(file)
             self.file_number += 1
         #delete temp folder
@@ -49,22 +55,19 @@ class AddonDownloader():
         if os.path.isdir(self.addon_temp_folder) == False:
             os.mkdir(self.addon_temp_folder)
         self.file_number = 0
-        link = "https://"+ttc_region+".tamrieltradecentre.com/download/PriceTable"
-        file = self.download(link, self.file_number, custom_url=link)
+        download_url = "https://"+ttc_region+".tamrieltradecentre.com/download/PriceTable"
+        file = self.download(self.file_number, download_url)
         self.unzip(file, custom_location=target_location)
         shutil.rmtree(self.addon_temp_folder)
         self.set_status_text("Done! Updated TTC pricetables to " + target_location)
         self.end()
 
-    def download(self, link, file_number, custom_url=""):
-        self.set_status_text("Downloading: " + link)
+    def download(self, file_number, download_url):
+        self.set_status_text("Downloading: " + download_url)
         tempfilename = self.addon_temp_folder + "/" + self.addon_temp_name.format(str(file_number))
-        if custom_url == "":
-            info = re.findall("https://www.esoui.com/downloads/info(\d*)", link)[0]
-            download_url = "https://cdn.esoui.com/downloads/file" + info + "/"
-        else:
-            download_url = custom_url
         request = Request(url=download_url, headers=self.headers)
+        if urlopen(request).getcode() != 200:
+            return False
         response = urlopen(request)
         with open(tempfilename, "wb") as f:
             f.write(response.read())
@@ -81,8 +84,4 @@ class AddonDownloader():
     def end(self):
         self.set_status_text("Done! Addons downloaded and unzipped to " + self.addons_location)
         GLib.idle_add(self.set_button_sensitivity, True)
-
-
-
-
 
