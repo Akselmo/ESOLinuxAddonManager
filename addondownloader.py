@@ -1,7 +1,7 @@
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import GLib
-import re, shutil, os, re, zipfile, time
+import re, shutil, os, re, zipfile, time, certifi
 from urllib.request import urlopen, Request
 
 class AddonDownloader():
@@ -66,9 +66,9 @@ class AddonDownloader():
         self.set_status_text("Downloading: " + download_url)
         tempfilename = self.addon_temp_folder + "/" + self.addon_temp_name.format(str(file_number))
         request = Request(url=download_url, headers=self.headers)
-        if urlopen(request).getcode() != 200:
+        if urlopen(request, cafile=certifi.where()).getcode() != 200:
             return False
-        response = urlopen(request)
+        response = urlopen(request, cafile=certifi.where())
         with open(tempfilename, "wb") as f:
             f.write(response.read())
         return tempfilename
