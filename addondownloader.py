@@ -1,8 +1,10 @@
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import GLib
-import re, shutil, os, re, zipfile, time, certifi
+import re, shutil, os, re, zipfile, time, certifi, ssl
 from urllib.request import urlopen, Request
+
+
 
 class AddonDownloader():
 
@@ -21,9 +23,9 @@ class AddonDownloader():
     def __init__(self, func_set_button_sensitivity, func_set_status_text):
         self.set_button_sensitivity = func_set_button_sensitivity
         self.set_status_text = func_set_status_text
-
+        
     def start(self):
-        self.refresh_addon_location() 
+        self.refresh_addon_location()
         GLib.idle_add(self.set_button_sensitivity, False)
         self.set_status_text("Starting....")
         if os.path.isdir(self.addon_temp_folder) == False:
@@ -63,6 +65,7 @@ class AddonDownloader():
         self.set_status_text("Downloading: " + download_url)
         tempfilename = self.addon_temp_folder + "/" + self.addon_temp_name.format(str(file_number))
         request = Request(url=download_url, headers=self.headers)
+        ssl._create_default_https_context = ssl._create_unverified_context
         if urlopen(request, cafile=certifi.where()).getcode() != 200:
             return False
         response = urlopen(request, cafile=certifi.where())
@@ -83,7 +86,6 @@ class AddonDownloader():
         addons_location_file = open("addonslocation.txt", "r")
         self.addons = addons_file.read()
         self.addons_location = addons_location_file.read()
-
 
     def end(self):
         self.set_status_text("Done! Addons downloaded and unzipped to " + self.addons_location)
