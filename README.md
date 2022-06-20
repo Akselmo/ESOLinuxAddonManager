@@ -12,6 +12,8 @@ Very simple addon manager for Elder Scrolls Online running on Linux. Well, more 
 
 Currently it's quite ugly but it gets the job done!
 
+<img src="manager-screenshot.png" width="440" height="569" width="35%" align="left"/>
+
 ## How to use
 
 * Download the app from releases
