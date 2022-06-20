@@ -21,8 +21,8 @@ class AddonDownloader():
     set_status_text = None
 
     def __init__(self, func_set_button_sensitivity, func_set_status_text):
-        #Disable SSL for now
-        ssl._create_default_https_context = ssl._create_unverified_context
+        print("Certification file location: " + certifi.where())
+        print("If app crashes to SSL error, please report it in Github!")
         self.set_button_sensitivity = func_set_button_sensitivity
         self.set_status_text = func_set_status_text
         
@@ -67,7 +67,7 @@ class AddonDownloader():
         self.set_status_text("Downloading: " + download_url)
         tempfilename = self.addon_temp_folder + "/" + self.addon_temp_name.format(str(file_number))
         request = Request(url=download_url, headers=self.headers)
-        response = urlopen(request)
+        response = urlopen(request, cafile=certifi.where())
         if response.getcode() != 200:
             return False
         with open(tempfilename, "wb") as f:
