@@ -23,11 +23,7 @@ class AddonDownloader():
         self.set_status_text = func_set_status_text
 
     def start(self):
-        addons_file = open("addons.txt", "r")
-        addons_location_file = open("addonslocation.txt", "r")
-        self.addons = addons_file.read()
-        self.addons_location = addons_location_file.read()
-
+        self.refresh_addon_location() 
         GLib.idle_add(self.set_button_sensitivity, False)
         self.set_status_text("Starting....")
         if os.path.isdir(self.addon_temp_folder) == False:
@@ -49,6 +45,7 @@ class AddonDownloader():
         self.end()
 
     def start_ttc_update(self, ttc_region):
+        self.refresh_addon_location()
         GLib.idle_add(self.set_button_sensitivity, False)
         self.set_status_text("Updating TTC...")
         target_location = self.addons_location+"/TamrielTradeCentre/"
@@ -80,6 +77,13 @@ class AddonDownloader():
                 z.extractall(self.addons_location)
             else:
                 z.extractall(custom_location)
+    
+    def refresh_addon_location(self):
+        addons_file = open("addons.txt", "r")
+        addons_location_file = open("addonslocation.txt", "r")
+        self.addons = addons_file.read()
+        self.addons_location = addons_location_file.read()
+
 
     def end(self):
         self.set_status_text("Done! Addons downloaded and unzipped to " + self.addons_location)
