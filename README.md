@@ -16,6 +16,8 @@ Currently it's quite ugly but it gets the job done!
 
 ## How to use
 
+<a href="https://codeberg.org/akselmo/ESOLinuxAddonManager/releases"><img src="https://akselmo.dev/assets/images/getitoncodeberg.svg" width="200"></a>
+
 * Download the app from releases
 * Put it in any empty folder you wish
 * Make sure the app has permissions to run (is set to executable)
