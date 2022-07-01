@@ -1,0 +1,6 @@
+altgraph==0.17.2
+certifi==2022.6.15
+gobject==0.1.0
+pycairo==1.21.0
+PyGObject==3.42.1
+pyinstaller-hooks-contrib==2022.7
