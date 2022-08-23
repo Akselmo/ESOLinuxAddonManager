@@ -3,7 +3,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import GLib
 import re, shutil, os, re, zipfile, time, certifi, ssl
 from urllib.request import urlopen, Request
-
+import time
 
 
 class AddonDownloader():
@@ -36,7 +36,7 @@ class AddonDownloader():
         self.file_number = 0
         for link in links:
             info = re.findall("https://www.esoui.com/downloads/info(\d*)", link)[0]
-            download_url = "https://cdn.esoui.com/downloads/file" + info + "/1"
+            download_url = "https://cdn.esoui.com/downloads/file" + info + "/" + str(int(time.time()))
             file = self.download(self.file_number, download_url)
             if file == False:
                 print("Failed to use the new url, using old url instead...")
