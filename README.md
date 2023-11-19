@@ -21,7 +21,7 @@ Currently it's quite ugly but it gets the job done!
 
 * Download the app from releases: [Click here!](https://codeberg.org/akselmo/ESOLinuxAddonManager/releases)
   * The releases and main repository of the app are now hosted on Codeberg.
-  *Please use that for any issues
+  * Please use that for any issues
 * Put it in any empty folder you wish
 * Make sure the app has permissions to run (is set to executable)
 * After opening the app, add
